@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+    <section>
+      <div class="container p-2">
+        <div class="row gutter-1">
+
+          <form action="{% url 'finCompra' %}" class="col" method="get">
+
+            <!-- address -->
+            <div class="bg-white p-2 p-lg-3 mb-1">
+              <div class="row gutter-1 align-items-center">
+                <div class="col-md-6">
+                  <h2 class="text-uppercase fs-20">Dirección de envío</h2>
+                </div>
+              </div>
+
+              <fieldset class="mb-2">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-label-group">
+                      <input type="text" id="inputName2" class="form-control form-control-lg my-2" placeholder="Nombre" required="true">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-label-group">
+                      <input type="text" id="inputSurname2" class="form-control form-control-lg my-2" placeholder="Apellidos" required="">
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+
+              <fieldset class="my-2">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-label-group">
+                        <table class="table">
+                            <tr>
+                                <td>{{ direccion.direccion }}</td>
+                                <td>{{ direccion.localidad }}</td>
+                                <td>{{ direccion.provincia }}</td>
+                                <td>{{ direccion.codPostal }}</td>
+                            </tr>
+                        </table>
+                        <input type="radio" name="dir" id="inputDir" required="" value="{{ direccion }}">
+                        <label for="inputDir">Marque esta casilla si la dirección es correcta.</label>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+
+            <!-- payment -->
+            <div class="bg-white p-2 p-lg-3 mb-1">
+              <h2 class="mb-2 text-uppercase fs-20">Método de pago</h2>
+
+
+
+              <fieldset class="mb-3">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="col" data-select2-id="29">
+                        <div class="select-frame" data-select2-id="28">
+                            <label for="customPayment">Seleccione su tarjeta:</label>
+                          <select name="met" class="custom-select custom-select-lg select2-hidden-accessible" id="customPayment" data-select2-id="customPayment" tabindex="-1" aria-hidden="true">
+                            {% for metodo in metodos %}
+                              <option>{{ metodo.numeroTarjeta }}</option>
+                            {% endfor %}
+                          </select>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+
+              </fieldset>
+            </div>
+
+            <!-- place order -->
+            <div class="bg-white p-2 p-md-3">
+              <input type="submit" class="btn btn-lg btn-dark btn-block mb-2" value="Finalizar compra">
+            </div>
+
+          </form>
+
+
+
+
+          <!-- sidebar -->
+          <aside class="col-lg-5">
+            <div class="bg-white p-2 p-lg-3">
+              <h2 class="mb-3 text-uppercase fs-20">Resumen del pedido</h2>
+              {% for item in productos_carro %}
+                  <div class="cart-item my-2">
+                    <div class="cart-item-body">
+                      <div class="row">
+                        <img src="{{ item.producto.imagen.url }}" class="img-fluid mx-auto d-block image col-3" alt="Image">
+                        <div class="col-9">
+                          <h5 class="cart-item-title">{{ item.producto.nombre }}</h5>
+                          <ul class="list list--horizontal fs-14">
+                            <li class="text-red">{{ item.precio }} €</li>
+                            <li class="text-red">{{ item.unidades}} unidades</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              {% endfor %}
+              <hr class="my-3">
+              <ul class="list-group list-group-minimal">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Total productos
+                  <span>{{ precio_productos }} €</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center text-uppercase font-weight-bold">
+                  IVA
+                  <span>{{ iva }} €</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Gasto de envío
+                  <span>{{ gasto_envio }} €</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center text-uppercase font-weight-bold">
+                  Total
+                  <span>{{ precio_total }}</span>
+                </li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+{% endblock %}

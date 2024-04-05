@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                <span class="font-weight-bold"><a href="{% url 'perfil' user.pk %}"><button>Perfil</button></a></span>
+                <span class="font-weight-bold"><a href="{% url 'metodoPago' user.pk %}"><button>Metodo de pago</button></a></span>
+                <span class="font-weight-bold"><a href="{% url 'direccion' user.pk %}"><button>Direcciones</button></a></span>
+                <span class="font-weight-bold"><a href="#"><button>Compras</button></a></span><br>
+                <span class="font-weight-bold"><a href="{% url 'LogOut'%}"><button>Log Out</button></a></span>
+            </div>
+        </div>
+        <div class="col-md-5 border-right">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Perfil</h4>
+                </div>
+                                <div class="row mt-2">
+                    <table>
+                        <tr>
+                            <th>
+                                Direccion
+                            </th>
+                            <th>
+                                Localidad
+                            </th>
+                            <th>
+                                Provincia
+                            </th>
+                            <th>
+                                Codigo Postal
+                            </th>
+                            <th>
+                                DNI Usuario
+                            </th>
+                        </tr>
+                        {% for objeto in datos %}
+                        <tr>
+                            <td>
+                                {{ objeto.direccion }}
+                            </td>
+                            <td>
+                                {{ objeto.localidad }}
+                            </td>
+                            <td>
+                                {{ objeto.provincia }}
+                            </td>
+                            <td>
+                                {{ objeto.codPostal }}
+                            </td>
+                            <td>
+                                {{ objeto.usuario }}
+                            </td>
+                            <td>
+                                <span class="font-weight-bold"><a href="{% url 'borrarDireccion' pk=objeto.id %}"><button>Borrar Dirección</button></a></span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table><br><br><br><br><br>
+                    <span class="font-weight-bold"><a href="{% url 'AniadirDireccion' %}"><button>Añadir Direccion</button></a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+<div class="container-fluid">
+
+    <div class="row">
+        {% block content %}
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}<br><br>
+                <input type="submit" value="Confirmar">
+            </form>
+        {% endblock %}
+    </div>
+</div>
+</body>
+</html>

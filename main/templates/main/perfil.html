@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                <span class="font-weight-bold"><a href="{% url 'perfil' user.pk %}"><button>Perfil</button></a></span>
+                <span class="font-weight-bold"><a href="{% url 'metodoPago' user.pk %}"><button>Metodo de pago</button></a></span>
+                <span class="font-weight-bold"><a href="{% url 'direccion' user.pk %}"><button>Direcciones</button></a></span>
+                <span class="font-weight-bold"><a href="{% url 'perfilCompras' user.pk %}"><button>Compras</button></a></span><br>
+                <span class="font-weight-bold"><a href="{% url 'LogOut' %}"><button>Log Out</button></a></span>
+            </div>
+        </div>
+        <div class="col-md-5 border-right">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Perfil</h4>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6"><label class="labels">Nombre Usuario:   </label>"{{ user.username }}"</div>
+                    {% for dato in object_list %}
+                        <div class="col-md-6"><label class="labels">DNI:   </label>"{{ dato.dni }}"</div>
+                        <div class="col-md-6"><label class="labels">Telefono:   </label>"{{ dato.telefono }}"</div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

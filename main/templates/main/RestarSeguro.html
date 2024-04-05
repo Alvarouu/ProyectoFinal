@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+    <p>Se va a editar el carrito ¿Estas Seguro?</p>
+    <form method="post">
+    {% csrf_token %}
+        <button class="btn btn-danger" type="submit">Si</button>
+    </form>
+    <a class="btn btn-info" href="{% url 'muestraCarro' %}">No</a>
+{% endblock %}

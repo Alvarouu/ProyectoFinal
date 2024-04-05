@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+                    <table>
+                    <tr>
+                        <th>
+                            Producto
+                        </th>
+                        <th>
+                            Precio
+                        </th>
+                        <th>
+                            Unidades
+                        </th>
+                        <th>
+                            Precio
+                        </th>
+                    </tr>
+                    {% for data,total in productos_en_sesion %}
+                    <tr>
+                        <td>
+                            {{ data.producto }}
+                        </td>
+                        <td>
+                            {{ data.precio }}
+                        </td>
+                        <td>
+                            {{ data.unidades }}
+                        </td>
+                        <td>
+                            {{ total }}
+                        </td>
+                        <td>
+                             <a class="btn btn-danger" href="{% url 'resta' pk=data.producto.id %}">-</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                     <form class="summary" method="get" action="{% url 'comprar' %}">
+			 					<h3>Dirección de envío</h3>
+                                {% if request.user.is_authenticated %}
+                                    <select class="row mx-1 mb-3" name="direccionEnv">
+                                        {% for direccion in direcciones %}
+                                            <option>{{ direccion.direccion }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <input type="submit" class="btn btn-outline-dark mt-auto" value="Realizar compra">
+                                {% else %}
+			 					    <div class="summary-item mb-2"><span class="text">Solo los usuarios registrados pueden realizar compras. Puede registrarse haciendo click <a href="{% url 'registro' %}">aquí.</a></span></div>
+                                {% endif %}
+
+                     </form>
+
+                    <table>
+                        <th>Total: {{ final }}</th>
+                    </table>
+
+
+                </table>
+{% endblock %}

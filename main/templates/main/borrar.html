@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        <h3>¿Estas seguro?</h3>
+        <p>¿Estas seguro que deseas borrar el producto {{ Producto.nombre }}?</p>
+        <input type="submit" value="Confirmar">
+        <a class="btn btn-secondary" href="{% url 'catalogo'%}">No (Se le enviará de vuelta a catalogo)</a>
+    </form>
+{% endblock %}

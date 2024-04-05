@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h1>¿Seguro que desea borrar la tarjeta?</h1>
+        <input type="submit" value="Confirmar">
+    </form>
+{% endblock %}

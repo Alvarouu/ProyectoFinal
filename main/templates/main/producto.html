@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+
+
+{% block content %}
+    <div class="row" style="justify-content: center">
+        <div class="card col-3 col-lg-2">
+            <form>
+                {% csrf_token %}
+                <a href="{% url 'producto' pk=producto.id %}"><img src="{{ producto.imagen.url }}" class="card-img-top"></a>
+                <div class="card-body">
+                    <h5 class="card-title">Nombre: {{ producto.nombre }}</h5>
+                    <p class="card-text">Detalles: {{ producto.detalles }}</p>
+                    <p class="card-text">Categoria: {{ producto.categoria }}</p>
+                    <p class="card-text">Modelo: {{ producto.modelo }}</p>
+                    <p class="card-text">Marca: {{ producto.marca }}</p>
+                    <p class="card-text">Precio: {{ producto.precio }}</p>
+                    <a href="" class="btn btn-secondary">Carrito</a>
+                    <a href="{% url 'carrito' pk=producto.id %}" class="btn btn-dark">Comprar</a>
+                    {% if request.user.is_superuser %}
+                        <a class="btn btn-warning" href="{% url 'editar' pk=producto.id %}">Modificar Producto</a>
+                        <a class="btn btn-danger" href="{% url 'borrar' pk=producto.id %}">Borrar Producto</a>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
